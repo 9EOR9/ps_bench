@@ -97,10 +97,10 @@ int run_binary_test()
     if (!prepare_once)
     {
       stmt= mysql_stmt_init(mysql);
-      rc= mariadb_stmt_execute_direct(stmt, "select id1, id2, a1, a2, b1, b2, c1, c2 from bench1, bench2 where id1=id2 and id1=1", -1);
+      rc= mysql_stmt_prepare(stmt, "select id1, id2, a1, a2, b1, b2, c1, c2 from bench1, bench2 where id1=id2 and id1=1", -1);
+      check_rc(rc);
     }
-    else
-      rc= mysql_stmt_execute(stmt);
+    rc= mysql_stmt_execute(stmt);
     check_rc(rc);
 
     rc= mysql_stmt_store_result(stmt);
@@ -142,9 +142,9 @@ int fill_data()
   rc= mysql_query(mysql, "DROP TABLE IF exists bench1, bench2");
   check_rc(rc);
 
-  rc= mysql_query(mysql, "CREATE TABLE `bench1` ( `id1` int(11) NOT NULL AUTO_INCREMENT, `a1` int(11) DEFAULT NULL, `b1` varchar(36) DEFAULT NULL, `c1` varchar(36) DEFAULT NULL, PRIMARY KEY (`id1`)) ENGINE=MEMORY");
+  rc= mysql_query(mysql, "CREATE TABLE `bench1` ( `id1` int(11) NOT NULL AUTO_INCREMENT, `a1` int(11) DEFAULT NULL, `b1` varchar(36) DEFAULT NULL, `c1` varchar(36) DEFAULT NULL, PRIMARY KEY (`id1`)) ENGINE=MyISAM");
   check_rc(rc);
-  rc= mysql_query(mysql, "CREATE TABLE `bench2` ( `id2` int(11) NOT NULL AUTO_INCREMENT, `a2` int(11) DEFAULT NULL, `b2` varchar(36) DEFAULT NULL, `c2` varchar(36) DEFAULT NULL, PRIMARY KEY (`id2`)) ENGINE=MEMORY");
+  rc= mysql_query(mysql, "CREATE TABLE `bench2` ( `id2` int(11) NOT NULL AUTO_INCREMENT, `a2` int(11) DEFAULT NULL, `b2` varchar(36) DEFAULT NULL, `c2` varchar(36) DEFAULT NULL, PRIMARY KEY (`id2`)) ENGINE=MyISAM");
   check_rc(rc);
 
   for (i=0; i < 10; i++)

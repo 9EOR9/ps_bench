@@ -19,4 +19,4 @@ string(FIND ${MARIADB_LIBRARY_DIR} " -l" MY_LENGTH)
 string(SUBSTRING ${MARIADB_LIBRARY_DIR} 0 ${MY_LENGTH} MARIADB_LIBRARY_DIR)
 
 add_executable(ps_bench ps_bench.c)
-target_link_libraries(ps_bench ${MARIADB_LIBRARY_DIR}/libmariadbclient.a ${DEFAULT_LIBS} -lz)
+target_link_libraries(ps_bench ${MARIADB_LIBRARY_DIR}/libmariadbclient.a ${DEFAULT_LIBS})
