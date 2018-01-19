@@ -192,5 +192,7 @@ int main(int argc, char **argv)
     return -1;
   }
 
+  mysql_close(mysql);
+
   return 0;
 }
